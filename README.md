@@ -74,44 +74,43 @@ We are now at the last part of step by step guide on how to simulate STM32 proje
 
 ```
 #include "main.h"
-#include <stdbool.h>
+#include<stdbool.h>
 void push_button();
 bool button_status;
+
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+
 int main(void)
 {
-  HAL_Init();
-
-  SystemClock_Config();
-
-  MX_GPIO_Init();
-  
-  while (1)
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+ while (1)
   {
-    push_button();
+	  push_button();
+  }
   }
 
-}
 void push_button()
-		{
-    	button_status=HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13);
-    	if(button_status==0){
-    		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_SET);
-    	}
-    	else{
-    		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_RESET);
-    	}
-		}
+{
+	button_status=HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
+	if(button_status==0)
+	{
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_SET);
+	}
+	else
+	{
+		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_RESET);
+	}
+}
 
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
-  
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
@@ -120,7 +119,6 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
@@ -137,61 +135,47 @@ void SystemClock_Config(void)
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
- 
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
-
-  
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-  
   GPIO_InitStruct.Pin = GPIO_PIN_13;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-  
   GPIO_InitStruct.Pin = GPIO_PIN_5;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
 }
 void Error_Handler(void)
 {
-  
   __disable_irq();
   while (1)
   {
-
-  } 
+  }
 }
 #ifdef  USE_FULL_ASSERT
-
 void assert_failed(uint8_t *file, uint32_t line)
 {
-  
 }
-#endif 
-
+#endif
 ```
 
 
 ## Output screen shots of proteus  :
 
 ## OFF:
+![image](https://github.com/user-attachments/assets/bb8e0d17-6b14-4606-a059-6c3c8cc56cff)
 
-![image](https://github.com/user-attachments/assets/47ce0308-424b-4145-95b6-f28dea6c7f37)
 
 ## ON:
 
-![image](https://github.com/user-attachments/assets/0b665138-21bb-409f-81b9-b75e08554c32)
+![image](https://github.com/user-attachments/assets/3aa8c529-69a7-434f-b942-29f7c3d4c7d8)
 
 
 ## Proteus layout
- 
-![image](https://github.com/user-attachments/assets/11ec6249-4610-4dac-90a7-3ff4ebdc6fc6)
-
-![image](https://github.com/user-attachments/assets/e5416bea-aa59-46b1-bd6e-33e01acc9a73)
+ ![image](https://github.com/user-attachments/assets/ac917365-fede-4067-8d4a-fd1ccc69dd1e)
 
  
 ## Result :
