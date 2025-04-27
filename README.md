@@ -175,7 +175,7 @@ void assert_failed(uint8_t *file, uint32_t line)
 
 
 ## Proteus layout
- ![image](https://github.com/user-attachments/assets/ac917365-fede-4067-8d4a-fd1ccc69dd1e)
+![image](https://github.com/user-attachments/assets/edd9d621-e539-4a83-82e3-346a70a2d02c)
 
  
 ## Result :
